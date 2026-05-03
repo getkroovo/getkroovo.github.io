@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us — Kroovo</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Poppins:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --navy:       #020817; 
+            --navy-mid:   #092648;
+            --teal:       #0E7C7B;
+            --teal-light: #1ABC9C;
+            --gold:       #D4A95F;
+            --white:      #FFFFFF;
+            --text-muted: #9BAABF;
+            --border:     rgba(255,255,255,0.09);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; }
+        nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 60px; border-bottom: 1px solid var(--border); background: var(--navy); }
+        .logo img { height: 60px; }
+        .container { max-width: 800px; margin: 80px auto; padding: 0 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 20px; color: var(--gold); }
+        h2 { font-family: 'Playfair Display', serif; font-size: 24px; margin: 40px 0 15px; color: var(--teal-light); }
+        p { margin-bottom: 20px; color: var(--text-muted); }
+        ul { margin-bottom: 20px; padding-left: 20px; color: var(--text-muted); }
+        li { margin-bottom: 10px; }
+        a { color: var(--gold); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .contact-box { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 40px; border-radius: 20px; text-align: center; margin-top: 50px; }
+        .contact-email { font-size: 28px; font-weight: 600; color: var(--white); display: block; margin: 20px 0; font-family: 'Playfair Display', serif; transition: 0.2s; }
+        .contact-email:hover { color: var(--teal-light); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">
+            <img src="logo.png" alt="Kroovo">
+        </a>
+        <a href="/" style="color: var(--white); font-weight: 600;">← Back to Home</a>
+    </nav>
+
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p><strong>We're here to help.</strong></p>
+
+        <p>Whether you are a user looking for assistance, an expert needing support, or if you have any compliance concerns or feedback, our team is ready to resolve your queries as quickly as possible.</p>
+
+        <div class="contact-box">
+            <h2 style="margin-top: 0;">Get in Touch</h2>
+            <p>Please raise any issues, questions, or requests directly by emailing our support team:</p>
+            <a href="mailto:getkroovo@gmail.com" class="contact-email">getkroovo@gmail.com</a>
+            <p style="font-size: 14px; margin-bottom: 0;">We aim to respond to all inquiries within 24-48 hours.</p>
+        </div>
+    </div>
+</body>
+</html>
