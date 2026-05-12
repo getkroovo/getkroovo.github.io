@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services & Industry Solutions — Kroovo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Poppins:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --navy:       #020817; 
+            --navy-mid:   #092648;
+            --teal:       #0E7C7B;
+            --teal-light: #1ABC9C;
+            --gold:       #D4A95F;
+            --white:      #FFFFFF;
+            --black:      #000000;
+            --text-muted: #9BAABF;
+            --border:     rgba(255,255,255,0.09);
+            --card-bg:    rgba(255,255,255,0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+
+        /* Navigation */
+        nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 60px; border-bottom: 1px solid var(--border); background: var(--navy); position: sticky; top: 0; z-index: 1000; transition: 0.3s; }
+        .brand-logo { height: 80px; width: auto; object-fit: contain; }
+        .nav-links { display: flex; list-style: none; gap: 40px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 14px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--teal-light); }
+
+        .section { padding: 80px 60px; max-width: 1400px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h1 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 20px; }
+        .section-header p { font-size: 18px; color: var(--text-muted); max-width: 800px; margin: 0 auto; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 35px; border-radius: 24px; transition: 0.4s; height: 100%; text-decoration: none; color: inherit; display: block; }
+        .card:hover { border-color: var(--teal-light); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .card-icon { font-size: 32px; margin-bottom: 20px; }
+        .card h3 { font-size: 22px; color: var(--white); margin-bottom: 10px; }
+        .card p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
+        .tag-list { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
+        .tag-item { font-size: 13px; color: var(--teal-light); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .tag-item span { font-size: 10px; }
+
+        footer { background: #000; padding: 100px 60px 40px; border-top: 1px solid var(--border); margin-top: 100px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; max-width: 1400px; margin: 0 auto; }
+        .footer-col h4 { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--white); margin-bottom: 30px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 15px; }
+        .footer-col ul li a { color: var(--text-muted); text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .footer-col ul li a:hover { color: var(--teal-light); }
+        .copyright { text-align: center; margin-top: 100px; padding-top: 40px; border-top: 1px solid var(--border); font-size: 13px; color: #444; }
+
+        .btn-primary { background: var(--teal); color: var(--white); border: none; padding: 12px 28px; border-radius: 8px; font-weight: 600; transition: 0.3s; text-decoration: none; display: inline-block; }
+        .btn-primary:hover { background: var(--teal-light); transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo" style="margin-left: -10px;">
+            <img src="logo.png" alt="Kroovo Logo" class="brand-logo">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#experts">Experts</a></li>
+            <li><a href="https://tally.so/r/b5NdE6" class="btn-primary" style="padding: 10px 20px; font-size: 13px;">Talk to an Expert</a></li>
+        </ul>
+    </nav>
+
+    <section class="section">
+        <div class="section-header">
+            <h1>All Services & Solutions</h1>
+            <p>Comprehensive professional advisory tailored for startups, businesses, and individuals.</p>
+        </div>
+
+        <div class="grid">
+            <!-- Startups -->
+            <a href="https://tally.so/r/b5NdE6" class="card">
+                <div class="card-icon">🚀</div>
+                <h3>For Startups</h3>
+                <p>Launch, fund & scale with confidence</p>
+                <div class="tag-list">
+                    <div class="tag-item"><span>▸</span> Company Registration</div>
+                    <div class="tag-item"><span>▸</span> DPIIT Startup Recognition</div>
+                    <div class="tag-item"><span>▸</span> Funding Compliance & Due Diligence</div>
+                    <div class="tag-item"><span>▸</span> Founder Agreements</div>
+                    <div class="tag-item"><span>▸</span> ESOP Structuring</div>
+                </div>
+            </a>
+
+            <!-- Software -->
+            <a href="https://tally.so/r/b5NdE6" class="card">
+                <div class="card-icon">💻</div>
+                <h3>IT & Software</h3>
+                <p>Software compliance, IP & data privacy</p>
+                <div class="tag-list">
+                    <div class="tag-item"><span>▸</span> Software Patents & Trademarks</div>
+                    <div class="tag-item"><span>▸</span> Data Privacy (DPDP) Compliance</div>
+                    <div class="tag-item"><span>▸</span> SLAs & Master Service Agreements</div>
+                    <div class="tag-item"><span>▸</span> Export/Import (IEC) for Tech</div>
+                </div>
+            </a>
+
+            <!-- E-Commerce -->
+            <a href="https://tally.so/r/b5NdE6" class="card">
+                <div class="card-icon">🛒</div>
+                <h3>E-Commerce & D2C</h3>
+                <p>Launch, list & scale legally across marketplaces</p>
+                <div class="tag-list">
+                    <div class="tag-item"><span>▸</span> Brand Trademark Registration</div>
+                    <div class="tag-item"><span>▸</span> Multi-state GST Registration</div>
+                    <div class="tag-item"><span>▸</span> FSSAI & Product Licensing</div>
+                    <div class="tag-item"><span>▸</span> Marketplace Reconciliations</div>
+                </div>
+            </a>
+
+            <!-- Influencers -->
+            <a href="https://tally.so/r/b5NdE6" class="card">
+                <div class="card-icon">🤳</div>
+                <h3>Influencers & Creators</h3>
+                <p>Sponsorship contracts, IP protection & creator tax</p>
+                <div class="tag-list">
+                    <div class="tag-item"><span>▸</span> Brand Deal Contract Review</div>
+                    <div class="tag-item"><span>▸</span> Personal Brand Trademarking</div>
+                    <div class="tag-item"><span>▸</span> Creator Specific ITR Filing</div>
+                    <div class="tag-item"><span>▸</span> GST for Social Media Income</div>
+                </div>
+            </a>
+
+            <!-- CFO -->
+            <a href="https://tally.so/r/b5NdE6" class="card">
+                <div class="card-icon">📊</div>
+                <h3>Virtual CFO Services</h3>
+                <p>Strategic financial leadership for growing SMEs</p>
+                <div class="tag-list">
+                    <div class="tag-item"><span>▸</span> Cash Flow & Burn Management</div>
+                    <div class="tag-item"><span>▸</span> MIS & Board Reporting</div>
+                    <div class="tag-item"><span>▸</span> Financial Modeling & Forecasting</div>
+                    <div class="tag-item"><span>▸</span> Unit Economics Analysis</div>
+                </div>
+            </a>
+
+            <!-- Freelancers -->
+            <a href="https://tally.so/r/b5NdE6" class="card">
+                <div class="card-icon">🎨</div>
+                <h3>Freelancers & Creatives</h3>
+                <p>Protect your work & manage global income</p>
+                <div class="tag-list">
+                    <div class="tag-item"><span>▸</span> Copyright Protection</div>
+                    <div class="tag-item"><span>▸</span> International Payment Tax (Form 15CA/CB)</div>
+                    <div class="tag-item"><span>▸</span> 44ADA Presumptive Taxation</div>
+                    <div class="tag-item"><span>▸</span> GST LUT for Exports</div>
+                </div>
+            </a>
+
+            <!-- Businesses -->
+            <a href="https://tally.so/r/b5NdE6" class="card">
+                <div class="card-icon">🏢</div>
+                <h3>For Established Businesses</h3>
+                <p>Comply, grow & protect your operations</p>
+                <div class="tag-list">
+                    <div class="tag-item"><span>▸</span> Statutory & Tax Audits</div>
+                    <div class="tag-item"><span>▸</span> ROC & Secretarial Compliance</div>
+                    <div class="tag-item"><span>▸</span> Internal Controls Review</div>
+                    <div class="tag-item"><span>▸</span> Corporate Legal Advisory</div>
+                </div>
+            </a>
+
+            <!-- Individuals -->
+            <a href="https://tally.so/r/b5NdE6" class="card">
+                <div class="card-icon">💼</div>
+                <h3>Salaried Individuals</h3>
+                <p>Save tax, protect wealth & plan for the future</p>
+                <div class="tag-list">
+                    <div class="tag-item"><span>▸</span> Tax Saving Investment Strategy</div>
+                    <div class="tag-item"><span>▸</span> Capital Gains (Stocks & Real Estate)</div>
+                    <div class="tag-item"><span>▸</span> Foreign Assets Reporting</div>
+                    <div class="tag-item"><span>▸</span> Estate Planning & Wills</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo">
+                    <img src="logo.png" alt="Kroovo Logo" class="brand-logo" style="height: 60px;">
+                </a>
+                <p style="color: var(--text-muted); margin-top: 20px;">The marketplace for verified professional excellence.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="index.html#experts">Browse Experts</a></li>
+                    <li><a href="faq.html">Common Queries</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="copyright">© 2026 Kroovo Marketplace. advisory purposes only.</p>
+    </footer>
+
+</body>
+</html>

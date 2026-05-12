@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kroovo — Verified CA & CMA Professionals</title>
+    <meta name="description" content="Making expert financial advice accessible to every Indian. Instant consultations, verified professionals, 24/7.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Poppins:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ── TOKENS ─────────────────────────────────────────── */
+        :root {
+            --navy:       #020817; /* Deepened Dark Navy Blue */
+            --navy-mid:   #092648;
+            --teal:       #0E7C7B;
+            --teal-light: #1ABC9C;
+            --gold:       #D4A95F;
+            --gold-light: #E8B45A;
+            --white:      #FFFFFF;
+            --black:      #000000;
+            --text-muted: #9BAABF;
+            --border:     rgba(255,255,255,0.09);
+            --card-bg:    rgba(255,255,255,0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #progress-bar {
+            position: fixed; top: 0; left: 0;
+            height: 3px; background: var(--gold);
+            width: 0%; z-index: 2000;
+        }
+
+        /* ── FAQ SECTION ───────────────────────────────────── */
+        .faq-section { padding: 100px 60px; background: transparent; }
+        .faq-grid { max-width: 800px; margin: 40px auto 0; display: flex; flex-direction: column; gap: 15px; }
+        .faq-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 25px; cursor: pointer; transition: 0.3s; }
+        .faq-item:hover { border-color: var(--teal); }
+        .faq-question { font-size: 16px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+        .faq-answer { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-top: 12px; display: none; }
+        .faq-item.active .faq-answer { display: block; }
+        .faq-item.active .faq-question { color: var(--gold); }
+        .faq-icon { transition: transform 0.3s; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+
+        /* ── RESET ──────────────────────────────────────────── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--navy);
+            color: var(--white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── NAV ────────────────────────────────────────────── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0px 60px;
+            height: 120px; /* Increased for deeper brand presence */
+            background: rgba(2, 8, 23, 0.95); 
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: var(--transition);
+        }
+        
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .brand-logo {
+            height: 100px; /* Scaled for 120px header */
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 15px rgba(26, 188, 156, 0.15)); 
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
+        }
+        
+        .brand-logo:hover {
+            transform: scale(1.05) rotate(-1deg);
+            filter: drop-shadow(0 0 25px rgba(26, 188, 156, 0.3));
+        }
+
+
+        .nav-links {
+            display: flex; gap: 60px; list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none; color: var(--text-muted);
+            font-size: 20px; font-weight: 500; letter-spacing: 0.8px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--white); }
+
+        .nav-cta { display: flex; gap: 12px; align-items: center; }
+
+        /* ── BUTTONS ────────────────────────────────────────── */
+        .btn-ghost {
+            padding: 10px 35px; border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 16px; font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-ghost:hover { border-color: var(--teal-light); color: var(--teal-light); }
+
+        .btn-primary {
+            padding: 10px 35px; border-radius: 12px;
+            border: none; background: var(--gold);
+            color: var(--black); font-family: inherit;
+            font-size: 16px; font-weight: 700; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+        .btn-hero {
+            padding: 18px 36px; border-radius: 12px;
+            border: none; background: var(--gold);
+            color: var(--black); font-family: inherit;
+            font-size: 16px; font-weight: 700; cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 10px 35px rgba(201,147,58,0.25);
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-hero:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 15px 45px rgba(201,147,58,0.35); }
+
+        .btn-hero-outline {
+            padding: 18px 36px; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: transparent; color: var(--white);
+            font-family: inherit; font-size: 16px; font-weight: 500; cursor: pointer;
+            transition: all 0.25s;
+        }
+        .btn-hero-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+        /* ── HERO ───────────────────────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center;
+            padding: 120px 60px 100px;
+            position: relative; overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute; inset: 0; z-index: 0;
+            background:
+                radial-gradient(circle at 70% 30%, rgba(14,124,123,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 20% 70%, rgba(201,147,58,0.1) 0%, transparent 50%);
+        }
+
+        .hero-grid {
+            position: absolute; inset: 0; z-index: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at 50% 50%, black, transparent);
+        }
+
+        .hero-content { 
+            position: relative; 
+            z-index: 10; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            text-align: center;
+            padding-top: 40px; 
+        }
+
+        .live-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 10px 22px; border-radius: 100px;
+            background: rgba(14,124,123,0.08); border: 1px solid rgba(14,124,123,0.3);
+            margin-bottom: 45px;
+        }
+        .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal-light); animation: pulse 2s infinite; }
+        .live-badge span { 
+            font-size: 11px; font-weight: 700; color: var(--teal-light); 
+            letter-spacing: 2px; text-transform: uppercase; 
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 900; line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 25px;
+        }
+        .hero h1 span.accent { color: var(--teal-light); }
+        .hero h1 span.gold { color: var(--gold); }
+        
+        .hero-sub {
+            font-size: 22px; 
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 50px;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+        
+        .revolving-text {
+            transition: opacity 0.5s ease-in-out;
+            min-height: 250px; /* Enhanced stability for blinking problems */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            margin-bottom: 40px;
+        }
+        .topic-prompt {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 22px; font-weight: 600;
+            color: var(--white);
+            margin-bottom: 12px; /* Balanced space */
+            letter-spacing: -0.5px;
+            line-height: 1.4;
+            opacity: 0.8;
+        }
+
+        .hero-sub {
+            font-size: 22px; /* Increased for better tagline visibility */
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 50px;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .urgency-strip {
+            display: flex; align-items: center; justify-content: center; gap: 30px;
+            margin-bottom: 50px; flex-wrap: wrap;
+        }
+        .urgency-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); font-weight: 400; }
+        .urgency-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+        .urgency-sep { width: 1px; height: 16px; background: var(--border); }
+
+        /* ── SEARCH BAR ─────────────────────────────────────── */
+        .search-area { margin-bottom: 40px; }
+        .search-label { 
+            font-size: 13px; color: var(--text-muted); 
+            margin-bottom: 15px; font-weight: 600; 
+            text-transform: uppercase; letter-spacing: 1.5px;
+            text-align: center; /* Align with centered search bar */
+        }
+        .search-bar {
+            display: flex; gap: 10px; background: rgba(255,255,255,0.05);
+            padding: 8px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);
+            max-width: 650px; margin: 0 auto; transition: var(--transition); /* Centered and slightly wider for balance */
+        }
+        .search-bar:focus-within { border-color: var(--teal-light); box-shadow: 0 0 20px rgba(14,124,123,0.15); }
+        .search-input {
+            flex: 1; background: transparent; border: none; padding: 12px 15px;
+            color: var(--white); font-family: inherit; font-size: 16px; outline: none;
+        }
+        .search-btn {
+            background: var(--teal); color: var(--white); border: none; padding: 12px 25px;
+            border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .search-btn:hover { background: var(--teal-light); }
+
+        /* ── PROBLEMS SECTION ───────────────────────────────── */
+        .problems { padding: 80px 60px; background: var(--navy-mid); }
+        .section-header { margin-bottom: 50px; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 15px; }
+        .problems-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .problem-card {
+            background: var(--card-bg); border: 1px solid var(--border); padding: 30px;
+            border-radius: 20px; cursor: pointer; transition: var(--transition);
+            position: relative; overflow: hidden;
+        }
+        .problem-card::after {
+            content: "Talk to an Expert →";
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 12px; background: var(--teal); color: white;
+            text-align: center; font-size: 13px; font-weight: 600;
+            transform: translateY(100%); transition: 0.3s;
+        }
+        .problem-card:hover { border-color: var(--teal); transform: translateY(-5px); }
+        .problem-card:hover::after { transform: translateY(0); }
+        .problem-icon { font-size: 32px; margin-bottom: 20px; display: block; }
+        .problem-card h3 { font-size: 18px; margin-bottom: 12px; color: var(--white); }
+        .problem-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+        /* ── EXPERTS SECTION ────────────────────────────────── */
+        .section { padding: 100px 60px; }
+        .pros-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 50px; }
+        .pro-card {
+            background: var(--card-bg); border: 1px solid var(--border); padding: 35px;
+            border-radius: 24px; transition: var(--transition);
+        }
+        .pro-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+        .pro-header { display: flex; align-items: start; gap: 15px; margin-bottom: 25px; }
+        .pro-avatar {
+            width: 50px; height: 50px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black);
+        }
+        .pro-info h3 { font-size: 17px; margin-bottom: 4px; display: flex; align-items: center; }
+        .pro-info p { font-size: 12px; color: var(--text-muted); }
+        .verified-icon {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 16px; height: 16px; background: var(--teal-light); color: var(--white);
+            border-radius: 50%; font-size: 10px; margin-left: 6px; cursor: help;
+        }
+        .pro-tags { 
+            display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; 
+            min-height: 80px; /* Enforces a 'linear' alignment for the separators below */
+            align-content: flex-start;
+        }
+        .tag { font-size: 11px; padding: 4px 12px; border-radius: 100px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-muted); }
+        .pro-stats { 
+            display: flex; gap: 15px; margin-bottom: 25px; font-size: 13px; 
+            border-top: 1px solid;
+            border-image: linear-gradient(to right, var(--border), transparent) 1;
+            padding-top: 20px; 
+        }
+        .pro-footer { display: flex; justify-content: space-between; align-items: center; }
+        .rate { font-size: 15px; font-weight: 700; color: var(--gold); }
+        .talk-now { background: var(--gold); color: var(--black); border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 13px; }
+
+        /* ── FOOTER ─────────────────────────────────────────── */
+        footer { padding: 80px 60px; background: var(--navy); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 60px; align-items: start; }
+        .footer-col h4 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; color: var(--white); }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 12px; }
+        .footer-col a { text-decoration: none; color: var(--text-muted); font-size: 14px; transition: 0.2s; }
+        .footer-col a:hover { color: var(--white); }
+        .social-icon { color: var(--text-muted); transition: 0.3s; line-height: 0; }
+        .social-icon:hover { color: var(--gold); transform: translateY(-2px); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 40px; color: var(--text-muted); font-size: 13px; }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        @media (max-width: 1024px) {
+            .problems-grid, .pros-grid { grid-template-columns: 1fr 1fr; }
+            footer { padding: 60px 40px; }
+        }
+        @media (max-width: 768px) {
+            nav { padding: 15px 25px; }
+            .hero { padding: 120px 25px 60px; }
+            .section, .problems { padding: 60px 25px; }
+            .problems-grid, .pros-grid, .footer-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 38px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <div id="progress-bar"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#top" class="logo">
+            <img src="logo.png" alt="Kroovo — Verified Professionals" class="brand-logo">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#how">How it works</a></li>
+            <li><a href="#problems">Issues</a></li>
+            <li><a href="#experts">Experts</a></li>
+            <li><a href="#">Kroovo Insights</a></li>
+        </ul>
+        <div class="nav-cta">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzvEW5qVfwiESVR3bJB56gET9BPnzCK8gBlgF9yueegkxpCA/viewform" style="text-decoration: none;">
+                <button class="btn-ghost" style="cursor: pointer;">Log In</button>
+            </a>
+            <a href="https://tally.so/r/b5NdE6" style="text-decoration: none;">
+                <button class="btn-primary" style="cursor: pointer;">Talk to an Expert</button>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+
+        <div class="hero-content">
+            <div class="live-badge">
+                <div class="live-dot"></div>
+                <span>GST · ITR · Tax Planning · Investment Advisory</span>
+            </div>
+
+            <h1 id="revolving-headline" class="revolving-text">
+                <div class="topic-prompt">👉 Got a legal or tax notice?</div>
+                <div><span class="accent">Expert Advisory</span><br><span class="gold">On Your Schedule.</span></div>
+            </h1>
+
+            <p class="hero-sub">Get direct access to highly verified professionals tailored to your specific requirements. Bypass traditional delays with our streamlined matching system, ensuring you receive clear, expert advisory on your schedule.</p>
+
+            <div class="search-area">
+                <p class="search-label">Describe your issue directly</p>
+                <div class="search-bar">
+                    <input type="text" id="hero-search-input" class="search-input" placeholder="E.g. Received GST scrutiny notice for FY 23-24...">
+                    <a href="#experts" style="text-decoration: none;">
+                        <button class="search-btn" type="button">Find Expert</button>
+                    </a>
+                </div>
+            </div>
+
+
+
+            <div class="hero-actions">
+                <a href="https://tally.so/r/b5NdE6" style="text-decoration: none; display: inline-block;">
+                    <button class="btn-hero" style="cursor: pointer;">Book Consultations</button>
+                </a>
+                <a href="https://form.jotform.com/getkroovo/professional-onboarding-form" style="text-decoration: none; display: inline-block;">
+                    <button class="btn-hero-outline" style="cursor: pointer;">Join as an Expert</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section" id="how" style="background: transparent; padding-top: 80px; padding-bottom: 40px;">
+        <div class="section-header" style="text-align: center; margin-bottom: 60px;">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 42px;">How It Works</h2>
+            <p style="color: var(--text-muted); font-size: 18px;">A streamlined process designed for rapid, high-quality professional resolution.</p>
+        </div>
+        
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+            <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 35px 25px; border-radius: 24px; text-align: center; transition: 0.3s;" onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--border)'">
+                <div style="width: 50px; height: 50px; background: rgba(14, 124, 123, 0.1); color: var(--teal-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; margin: 0 auto 20px;">1</div>
+                <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--white);">Initiate your Kroovo request</h3>
+                <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Share your financial, compliance, or regulatory needs by booking a consultation on Kroovo—your trusted partner for verified professionals on demand.</p>
+            </div>
+            
+            <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 35px 25px; border-radius: 24px; text-align: center; transition: 0.3s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+                <div style="width: 50px; height: 50px; background: rgba(212, 169, 95, 0.1); color: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; margin: 0 auto 20px;">2</div>
+                <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--white);">Expert identification & assignment</h3>
+                <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Your request is reviewed and matched with the most suitable verified professional based on your requirements.</p>
+            </div>
+            
+            <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 35px 25px; border-radius: 24px; text-align: center; transition: 0.3s;" onmouseover="this.style.borderColor='var(--teal-light)'" onmouseout="this.style.borderColor='var(--border)'">
+                <div style="width: 50px; height: 50px; background: rgba(26, 188, 156, 0.1); color: var(--teal-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; margin: 0 auto 20px;">3</div>
+                <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--white);">Session confirmation</h3>
+                <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Upon successful assignment, you receive a secure, encrypted meeting link scheduled in alignment with your preferred availability and timeline.</p>
+            </div>
+
+            <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 35px 25px; border-radius: 24px; text-align: center; transition: 0.3s;" onmouseover="this.style.borderColor='#818cf8'" onmouseout="this.style.borderColor='var(--border)'">
+                <div style="width: 50px; height: 50px; background: rgba(99, 102, 241, 0.1); color: #818cf8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; margin: 0 auto 20px;">4</div>
+                <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--white);">Resolve with confidence</h3>
+                <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">Engage in a confidential advisory session to address regulatory challenges, validate your compliance posture, and solidify your financial strategy.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Kroovo (Comparison Section) -->
+    <section class="section" style="background: var(--navy-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding-top: 120px; padding-bottom: 120px;">
+        <div class="section-header" style="text-align: center; margin-bottom: 80px;">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 42px;">Common Experience?</h2>
+            <p style="color: var(--text-muted); font-size: 18px;">Traditional inefficiency vs. The Kroovo Innovation</p>
+        </div>
+        
+        <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div style="background: rgba(255,255,255,0.02); padding: 50px; border-radius: 30px; border: 1px solid var(--border); transition: 0.3s;" onmouseover="this.style.borderColor='rgba(239, 68, 68, 0.3)'" onmouseout="this.style.borderColor='var(--border)'">
+                <h3 style="color: #ef4444; font-size: 24px; margin-bottom: 35px; display: flex; align-items: center; gap: 12px; font-family: 'Playfair Display', serif;">
+                    Traditional Way <span style="font-size: 26px;">⌛</span>
+                </h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 25px; font-size: 16px; color: var(--text-muted);">
+                    <li style="display: flex; gap: 15px;"><span style="color: #ef4444; font-weight: 700;">✕</span> Weeks of waiting for appointments</li>
+                    <li style="display: flex; gap: 15px;"><span style="color: #ef4444; font-weight: 700;">✕</span> Multiple tiring office visits</li>
+                    <li style="display: flex; gap: 15px;"><span style="color: #ef4444; font-weight: 700;">✕</span> Hidden hourly rates & opaque billing</li>
+                    <li style="display: flex; gap: 15px;"><span style="color: #ef4444; font-weight: 700;">✕</span> Zero post-consultation support</li>
+                    <li style="display: flex; gap: 15px;"><span style="color: #ef4444; font-weight: 700;">✕</span> Complex paperwork & manual coordination</li>
+                </ul>
+            </div>
+            <div style="background: rgba(14, 124, 123, 0.05); padding: 50px; border-radius: 30px; border: 1px solid var(--teal); box-shadow: 0 0 40px rgba(14, 124, 123, 0.15); transition: 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                <h3 style="color: var(--teal-light); font-size: 24px; margin-bottom: 35px; display: flex; align-items: center; gap: 12px; font-family: 'Playfair Display', serif;">
+                    The Kroovo Way <span style="font-size: 26px;">✨</span>
+                </h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 25px; font-size: 16px; color: var(--white);">
+                    <li style="display: flex; gap: 15px;"><span style="color: var(--teal-light); font-weight: 700;">✓</span> Priority expert matching in hours</li>
+                    <li style="display: flex; gap: 15px;"><span style="color: var(--teal-light); font-weight: 700;">✓</span> 100% digital, 24/7 access from home</li>
+                    <li style="display: flex; gap: 15px;"><span style="color: var(--teal-light); font-weight: 700;">✓</span> Transparent "No Hidden Charge" pricing</li>
+                    <li style="display: flex; gap: 15px;"><span style="color: var(--teal-light); font-weight: 700;">✓</span> Free 7-Day Follow-up (Upto 10 msgs)</li>
+                    <li style="display: flex; gap: 15px;"><span style="color: var(--teal-light); font-weight: 700;">✓</span> Secure, encrypted document handling</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending -->
+    <section class="section" id="spotlight" style="background: transparent;">
+        <div class="section-header" style="text-align: left; max-width: 1200px; margin: 0 auto 40px; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div>
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 38px; margin-bottom: 10px;">Trending Services</h2>
+                <p style="color: var(--text-muted); font-size: 16px;">Most booked specialized consultation tracks this month.</p>
+            </div>
+            <a href="#problems" style="color: var(--gold); text-decoration: none; font-weight: 600; font-size: 14px; letter-spacing: 0.5px;">VIEW ALL SERVICES →</a>
+        </div>
+        
+        <div class="pros-grid" style="grid-template-columns: repeat(4, 1fr); gap: 20px;">
+            <div class="pro-card" style="padding: 25px; transition: 0.4s; border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);">
+                <div style="background: rgba(14, 124, 123, 0.1); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <span style="font-size: 24px;">👨‍💻</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 700; background: rgba(212,147,58,0.1); padding: 2px 8px; border-radius: 4px;">High Demand</span>
+                    <span style="font-size: 12px; color: var(--white); font-weight: 500;">⭐ 4.9</span>
+                </div>
+                <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--white);">Freelancer Tax Refund</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Claim maximum 44ADA benefits & get your TDS refund faster. AY 2027-28 ready.</p>
+                <div style="font-weight: 700; color: var(--white); font-size: 14px;">From ₹499</div>
+            </div>
+
+            <div class="pro-card" style="padding: 25px; transition: 0.4s; border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);">
+                <div style="background: rgba(26, 188, 156, 0.1); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <span style="font-size: 24px;">⚖️</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--teal-light); font-weight: 700; background: rgba(26, 188, 156, 0.1); padding: 2px 8px; border-radius: 4px;">Trending</span>
+                    <span style="font-size: 12px; color: var(--white); font-weight: 500;">⭐ 4.8</span>
+                </div>
+                <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--white);">Regime Choice (AY 2027-28)</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Personalized calculation to see which regime saves you more tax before you file.</p>
+                <div style="font-weight: 700; color: var(--white); font-size: 14px;">From ₹399</div>
+            </div>
+
+            <div class="pro-card" style="padding: 25px; transition: 0.4s; border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);">
+                <div style="background: rgba(212, 169, 95, 0.1); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <span style="font-size: 24px;">📈</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 700; background: rgba(212,147,58,0.1); padding: 2px 8px; border-radius: 4px;">Wealth Advisory</span>
+                    <span style="font-size: 12px; color: var(--white); font-weight: 500;">⭐ 4.8</span>
+                </div>
+                <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--white);">Capital Gains Strategy</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Strategic planning for real estate, stock markets & ESOP tax optimization.</p>
+                <div style="font-weight: 700; color: var(--white); font-size: 14px;">From ₹699</div>
+            </div>
+
+            <div class="pro-card" style="padding: 25px; transition: 0.4s; border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);">
+                <div style="background: rgba(99, 102, 241, 0.1); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <span style="font-size: 24px;">🚀</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                    <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--teal-light); font-weight: 700; background: rgba(26, 188, 156, 0.1); padding: 2px 8px; border-radius: 4px;">For Founders</span>
+                    <span style="font-size: 12px; color: var(--white); font-weight: 500;">⭐ 4.9</span>
+                </div>
+                <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--white);">New Business Onboarding</h3>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">End-to-end guidance on statutory setup & business compliance requirements for new startups.</p>
+                <div style="font-weight: 700; color: var(--white); font-size: 14px;">From ₹549</div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="#problems" style="display: inline-block; padding: 12px 30px; background: var(--teal); color: white; border-radius: 10px; text-decoration: none; font-weight: 600;">View All Services</a>
+        </div>
+    </section>
+
+    <!-- Select Specific Issue -->
+    <section class="problems" id="problems" style="background: rgba(255,255,255,0.03); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="section-header">
+            <h2>Select your specific issue</h2>
+            <p style="color: var(--text-muted);">Common compliance triggers handled daily by our experts.</p>
+        </div>
+        
+        <div class="problems-grid">
+            <a href="https://tally.so/r/b5NdE6" class="problem-card" style="text-decoration: none; display: block;">
+                <span class="problem-icon">📄</span>
+                <h3>ITR Filing</h3>
+                <p>Expert assistance for salaried, business, or professional tax returns. Ensure accuracy and on-time filing.</p>
+            </a>
+            <a href="https://tally.so/r/b5NdE6" class="problem-card" style="text-decoration: none; display: block;">
+                <span class="problem-icon">⚖️</span>
+                <h3>New vs Old Scheme</h3>
+                <p>Confused between tax regimes? Get a personalized comparison to see which one saves you more money.</p>
+            </a>
+            <a href="https://tally.so/r/b5NdE6" class="problem-card" style="text-decoration: none; display: block;">
+                <span class="problem-icon">🏢</span>
+                <h3>GST Registration</h3>
+                <p>Seamless registration for your new business. Get your GSTIN quickly with expert guidance.</p>
+            </a>
+            <a href="https://tally.so/r/b5NdE6" class="problem-card" style="text-decoration: none; display: block;">
+                <span class="problem-icon">📑</span>
+                <h3>GST Notice</h3>
+                <p>Received a scrutiny or discrepancy notice? Get a professional review and draft a compliant response.</p>
+            </a>
+            <a href="https://tally.so/r/b5NdE6" class="problem-card" style="text-decoration: none; display: block;">
+                <span class="problem-icon">📈</span>
+                <h3>Investment Advisory</h3>
+                <p>Strategy-led advice on wealth creation, portfolio management, and financial goal setting.</p>
+            </a>
+            <a href="https://tally.so/r/b5NdE6" class="problem-card" style="text-decoration: none; display: block;">
+                <span class="problem-icon">💰</span>
+                <h3>Tax Planning</h3>
+                <p>Structure your income and investments to legally minimize tax liability before the financial year ends.</p>
+            </a>
+            <a href="https://tally.so/r/b5NdE6" class="problem-card" style="text-decoration: none; display: block;">
+                <span class="problem-icon">🌐</span>
+                <h3>LUT Filing (Exporters)</h3>
+                <p>Export goods or services without paying IGST. Fast & compliant Letter of Undertaking submission.</p>
+            </a>
+            <a href="https://tally.so/r/b5NdE6" class="problem-card" style="text-decoration: none; display: block;">
+                <span class="problem-icon">🧮</span>
+                <h3>Loan vs Invest</h3>
+                <p>Prepay loan or invest surplus? Get a clear answer with numbers from certified financial experts.</p>
+            </a>
+            <a href="https://tally.so/r/b5NdE6" class="problem-card" style="text-decoration: none; display: block; border: 1px dashed var(--teal-light); background: rgba(26, 188, 156, 0.05);">
+                <span class="problem-icon">❓</span>
+                <h3>Something else?</h3>
+                <p>Raise any other Issue not listed here. We have experts for every complex financial or legal challenge.</p>
+            </a>
+        </div>
+    </section>
+
+
+
+    <!-- Success Stories (Problem-Solution-Impact Format) -->
+    <section class="section" id="success" style="background: transparent;">
+        <div class="section-header" style="text-align: center;">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 42px;">Verified Success</h2>
+            <p style="color: var(--text-muted); font-size: 18px;">Real-world problems solved by Kroovo Professionals.</p>
+        </div>
+        <div class="pros-grid" style="margin-top: 50px;">
+            <div class="pro-card" style="border-left: 4px solid #ef4444; position: relative; overflow: hidden;">
+                <div style="margin-bottom: 20px;">
+                    <span style="font-size: 11px; font-weight: 700; color: #ef4444; text-transform: uppercase; letter-spacing: 1px;">The Problem</span>
+                    <h4 style="font-size: 17px; margin-top: 5px; color: var(--white);">"Received ₹3.2L GST notice for 2021 discrepancy."</h4>
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--teal-light); text-transform: uppercase; letter-spacing: 1px;">The Kroovo Solution</span>
+                    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-top: 5px;">A verified Expert analyzed the notice on an instant call and drafted a precise rebuttal using the correct statutory provisions.</p>
+                </div>
+                <div style="background: rgba(14, 124, 123, 0.1); padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between;">
+                    <span style="font-size: 13px; font-weight: 600; color: var(--teal-light);">Impact: Penalty Waived</span>
+                    <span style="font-size: 12px; color: var(--text-muted);">Amit M., SME Owner</span>
+                </div>
+            </div>
+            
+            <div class="pro-card" style="border-left: 4px solid #ef4444; position: relative; overflow: hidden;">
+                <div style="margin-bottom: 20px;">
+                    <span style="font-size: 11px; font-weight: 700; color: #ef4444; text-transform: uppercase; letter-spacing: 1px;">The Problem</span>
+                    <h4 style="font-size: 17px; margin-top: 5px; color: var(--white);">"Confused between regimes; losing ₹45k annually."</h4>
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--teal-light); text-transform: uppercase; letter-spacing: 1px;">The Kroovo Solution</span>
+                    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-top: 5px;">Expert session helped calculate specific itemized deductions (LTA, 80C) against both regimes in real-time.</p>
+                </div>
+                <div style="background: rgba(14, 124, 123, 0.1); padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between;">
+                    <span style="font-size: 13px; font-weight: 600; color: var(--teal-light);">Impact: ₹45,000 Refund</span>
+                    <span style="font-size: 12px; color: var(--text-muted);">Siddharth R., Developer</span>
+                </div>
+            </div>
+
+            <div class="pro-card" style="border-left: 4px solid #ef4444; position: relative; overflow: hidden;">
+                <div style="margin-bottom: 20px;">
+                    <span style="font-size: 11px; font-weight: 700; color: #ef4444; text-transform: uppercase; letter-spacing: 1px;">The Problem</span>
+                    <h4 style="font-size: 17px; margin-top: 5px; color: var(--white);">"Startup registration delayed due to wrong paperwork."</h4>
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--teal-light); text-transform: uppercase; letter-spacing: 1px;">The Kroovo Solution</span>
+                    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-top: 5px;">Kroovo expert reviewed utility bills and office proofs, correcting a typo that caused 3 previous rejections.</p>
+                </div>
+                <div style="background: rgba(14, 124, 123, 0.1); padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between;">
+                    <span style="font-size: 13px; font-weight: 600; color: var(--teal-light);">Impact: Registered in 72h</span>
+                    <span style="font-size: 12px; color: var(--text-muted);">Varun S., Founder</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust & Privacy (Security Reinforcement) -->
+    <section class="section" id="trust" style="background: transparent; padding-top: 120px; padding-bottom: 120px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+            <div>
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 25px;">Privacy First.<br>Security Always.</h2>
+                <p style="color: var(--text-muted); font-size: 17px; line-height: 1.8; margin-bottom: 40px;">Professional consultations involve sensitive financial data. On Kroovo, your privacy is protected by India's most advanced professional security architecture.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 30px;">
+                    <div style="display: flex; gap: 15px; align-items: start;">
+                        <span style="font-size: 28px;">🛡️</span>
+                        <div>
+                            <h4 style="color: var(--white); margin-bottom: 5px; font-size: 17px;">End-to-End Encrypted</h4>
+                            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">Every consultation is fully encrypted to ensure your conversation stays private.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; align-items: start;">
+                        <span style="font-size: 28px;">👤</span>
+                        <div>
+                            <h4 style="color: var(--white); margin-bottom: 5px; font-size: 17px;">Complete Privacy</h4>
+                            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">Your documents and discussions are strictly between you and the expert.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; align-items: start;">
+                        <span style="font-size: 28px;">✔️</span>
+                        <div>
+                            <h4 style="color: var(--white); margin-bottom: 5px; font-size: 17px;">Verified by Design</h4>
+                            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">Every professional undergoes meticulous, multi-layered verification against official regulatory bodies, ensuring unmatched trust and credibility.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="background: var(--navy-mid); padding: 60px; border-radius: 40px; border: 1px solid var(--border); box-shadow: 0 40px 100px rgba(0,0,0,0.4);">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <div style="font-size: 60px; margin-bottom: 20px;">🛡️</div>
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 32px;">The Kroovo Trust Shield</h3>
+                </div>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 20px;">
+                    <li style="display: flex; align-items: center; gap: 15px; font-size: 15px; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; color: var(--white);">
+                        <span style="color: var(--teal-light); font-size: 20px;">✓</span> Free Consultation with Another Expert if Unsatisfied
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 15px; font-size: 15px; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; color: var(--white);">
+                        <span style="color: var(--teal-light); font-size: 20px;">✓</span> Anonymous Chat Enabled
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 15px; font-size: 15px; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; color: var(--white);">
+                        <span style="color: var(--teal-light); font-size: 20px;">✓</span> Statutory Insulation for Professionals
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 15px; font-size: 15px; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; color: var(--white);">
+                        <span style="color: var(--teal-light); font-size: 20px;">✓</span> 7-Day Free Follow-up (Upto 10 messages)
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 15px; font-size: 15px; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; color: var(--white);">
+                        <span style="color: var(--teal-light); font-size: 20px;">✓</span> Secure Payment Escrow
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experts Section (Humanizing Value - THE CLOSER) -->
+    <section class="section" id="experts" style="background: transparent; padding-top: 50px;">
+        <div class="section-header" style="text-align: center; margin-bottom: 60px;">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 42px;">Consult with Elite Professionals</h2>
+            <p style="color: var(--text-muted); font-size: 18px;">Direct access to experts rigorously verified with ICAI, ICWAI, and other leading professional bodies.</p>
+        </div>
+
+        <div class="pros-grid">
+            <!-- Expert 1 -->
+            <div class="pro-card">
+                <div class="pro-header">
+                    <div class="pro-avatar" style="background: linear-gradient(135deg, var(--teal), var(--teal-light));">RD</div>
+                    <div class="pro-info">
+                        <h3>Risha Deep, CA<span class="verified-icon" title="Verified Kroovo Professional">✓</span></h3>
+                        <p>Chartered Accountant · 7 yrs exp</p>
+                    </div>
+                </div>
+                <div class="pro-tags">
+                    <span class="tag">GST Notice</span>
+                    <span class="tag">ITR Filing</span>
+                    <span class="tag">New vs Old Scheme</span>
+                    <span class="tag">GST Registration</span>
+                </div>
+                <div class="pro-stats">
+                    <span>💬 400+ Consults</span>
+                    <span>⭐ 4.9 Rating</span>
+                </div>
+                <div class="pro-footer">
+                    <span class="rate">₹699 / session</span>
+                    <a href="https://tally.so/r/b5NdE6" style="text-decoration: none;">
+                        <button class="talk-now">Book Session →</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Expert 2 -->
+            <div class="pro-card">
+                <div class="pro-header">
+                    <div class="pro-avatar">KB</div>
+                    <div class="pro-info">
+                        <h3>Krishna Prasad Burnwal, CA<span class="verified-icon" title="Verified Kroovo Professional">✓</span></h3>
+                        <p>Chartered Accountant · 7 yrs exp</p>
+                    </div>
+                </div>
+                <div class="pro-tags">
+                    <span class="tag">ITR Filing</span>
+                    <span class="tag">New vs Old Scheme</span>
+                    <span class="tag">Investment Advisory</span>
+                </div>
+                <div class="pro-stats">
+                    <span>💬 100+ Consults</span>
+                    <span>⭐ 4.8 Rating</span>
+                </div>
+                <div class="pro-footer">
+                    <span class="rate">₹399 / session</span>
+                    <a href="https://tally.so/r/b5NdE6" style="text-decoration: none;">
+                        <button class="talk-now">Book Session →</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Expert 3 -->
+            <div class="pro-card">
+                <div class="pro-header">
+                    <div class="pro-avatar" style="background: linear-gradient(135deg, #6366f1, #a5b4fc);">SM</div>
+                    <div class="pro-info">
+                        <h3>Sunita Mishra, CA<span class="verified-icon" title="Verified Kroovo Professional">✓</span></h3>
+                        <p>Chartered Accountant · 8 yrs exp</p>
+                    </div>
+                </div>
+                <div class="pro-tags">
+                    <span class="tag">NRI Taxation</span>
+                    <span class="tag">FEMA Advisory</span>
+                </div>
+                <div class="pro-stats">
+                    <span>💬 210+ Consults</span>
+                    <span>⭐ 4.9 Rating</span>
+                </div>
+                <div class="pro-footer">
+                    <span class="rate">₹549 / session</span>
+                    <a href="https://tally.so/r/b5NdE6" style="text-decoration: none;">
+                        <button class="talk-now">Book Session →</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 50px;">
+            <button class="btn-hero" style="padding: 15px 40px; font-size: 16px;">View All Experts</button>
+        </div>
+    </section>
+
+    <!-- FAQ (Clarification) -->
+
+    <!-- FAQ -->
+    <!-- FAQ (Seamless Flow) -->
+    <section class="faq-section" id="faq" style="background: transparent;">
+        <div style="text-align:center">
+            <div class="live-badge" style="background: rgba(201,147,58,0.1); border-color: rgba(201,147,58,0.3);">
+                <span style="color: var(--gold);">Got Questions?</span>
+            </div>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 32px;">Common Queries</h2>
+        </div>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <div class="faq-question">How are the professionals verified? <span class="faq-icon">↓</span></div>
+                <div class="faq-answer">Every professional on Kroovo undergoes a stringent vetting process. We manually cross-check their credentials against the official registers of ICAI, ICWAI, and other recognized professional bodies to guarantee 100% authenticity.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How does billing work? <span class="faq-icon">↓</span></div>
+                <div class="faq-answer">Kroovo operates with a 'No Hidden Charges' policy. You pay a simple, transparent fee upfront for each consultation, regardless of the duration. No complex timers or surcharges.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can I share documents during the call? <span class="faq-icon">↓</span></div>
+                <div class="faq-answer">Yes. You can securely share documents directly with the expert via WhatsApp or Email prior to or during your session.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Is my financial data safe? <span class="faq-icon">↓</span></div>
+                <div class="faq-answer">Absolutely. All consultations are conducted via secure platforms like WhatsApp Video or Google Meet. Kroovo does not store your sensitive financial documents; all data is shared directly and confidentially via Email or WhatsApp between you and your verified expert.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can I talk to the same expert again? <span class="faq-icon">↓</span></div>
+                <div class="faq-answer">Yes. Every consultation generates a unique Expert Code. You can use this code in the search bar later to check that specific professional's real-time availability for a follow-up.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Is the advice legally binding? <span class="faq-icon">↓</span></div>
+                <div class="faq-answer">Kroovo experts provide professional advisory based on the data shared. While highly accurate, these sessions are for advisory purposes. For official legal opinions or representation, you can request a formal engagement letter from the expert.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What is the "Free Follow-up" policy? <span class="faq-icon">↓</span></div>
+                <div class="faq-answer">Every consultation comes with a peace-of-mind guarantee. You can reach out to your expert directly via WhatsApp or Email for free for up to 7 days after the session (maximum 10 messages), whichever comes earlier. This ensures you have total clarity on the advice provided.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What if my query isn't resolved? <span class="faq-icon">↓</span></div>
+                <div class="faq-answer">Our goal is clarity. If you're not satisfied with the expert's depth of answer, you can request a review. If we find the consultation didn't meet our quality standards, we will arrange a complimentary session with a different expert.</div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col" style="overflow: visible; padding-top: 0;">
+                <a href="#top" class="logo" style="margin-bottom: 25px; display: inline-block; margin-top: -5px;">
+                    <img src="logo.png" alt="Kroovo — Verified Professionals" class="brand-logo" style="height: 100px; display: block; margin-left: -10px;">
+                </a>
+                <p style="line-height: 1.6; color: var(--text-muted); font-size: 16px; max-width: 320px;">Making expert financial advice accessible to every Indian. Instant consultations, verified professionals, 24/7.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Experts</h4>
+                <ul>
+                    <li><a href="#experts">Chartered Accountants</a></li>
+                    <li><a href="#experts">Cost Accountants</a></li>
+                    <li style="display: flex; align-items: center; gap: 8px;"><span style="color: var(--text-muted); font-size: 14px;">Company Secretaries</span> <span style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 700; background: rgba(212,147,58,0.1); padding: 2px 6px; border-radius: 4px;">Coming Soon</span></li>
+                    <li style="display: flex; align-items: center; gap: 8px;"><span style="color: var(--text-muted); font-size: 14px;">Legal Counsel</span> <span style="font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 700; background: rgba(212,147,58,0.1); padding: 2px 6px; border-radius: 4px;">Coming Soon</span></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support & Legal</h4>
+                <ul>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="compliance.html">Compliance Policy</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Kroovo Technologies. All Rights Reserved. · Made in India 🇮🇳</p>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <a href="https://www.linkedin.com/company/kroovo/" target="_blank" rel="noopener noreferrer" class="social-icon" title="LinkedIn">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/getkroovo/" target="_blank" rel="noopener noreferrer" class="social-icon" title="Instagram">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://x.com/getkroovo" target="_blank" rel="noopener noreferrer" class="social-icon" title="X (Twitter)">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://www.facebook.com/Kroovo/" target="_blank" rel="noopener noreferrer" class="social-icon" title="Facebook">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-3 7h-1.924c-.615 0-1.076.252-1.076.889v1.111h3l-.238 3h-2.762v8h-3v-8h-2v-3h2v-1.923c0-2.022 1.064-3.077 3.461-3.077h2.539v3z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Interaction Logic
+        document.querySelectorAll('.btn-hero, .talk-now').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const originalText = this.innerText;
+                this.innerText = 'Connecting...';
+                this.disabled = true;
+                setTimeout(() => {
+                    this.innerText = originalText;
+                    this.disabled = false;
+                    alert('Redirecting to secure consultation room...');
+                }, 1500);
+            });
+        });
+
+        // FAQ Toggles
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        });
+        // Revolving Text & Placeholder Logic
+        const rotatingTopics = [
+            {
+                html: '<div class="topic-prompt">👉 Got a legal or tax notice?</div><div><span class="accent">Expert Advisory</span><br><span class="gold">On Your Schedule.</span></div>',
+                placeholder: 'E.g. Received GST scrutiny notice for FY 23-24...'
+            },
+            {
+                html: '<div class="topic-prompt">👉 Sold a House & Worried About Capital Gains Tax?</div><div><span class="accent">🏡 Save Tax Smartly</span><br><span class="gold">with Expert Planning</span></div>',
+                placeholder: 'E.g. Calculating LTCG on residential property sale...'
+            },
+            {
+                html: '<div class="topic-prompt">👉 Not Sure If You Need GST Registration?</div><div><span class="accent">❓ Avoid Costly Mistakes</span><br><span class="gold">— Get Clarity Now</span></div>',
+                placeholder: 'E.g. Crossed 20L turnover threshold in services...'
+            },
+            {
+                html: '<div class="topic-prompt">👉 Confused Between ITR-1, ITR-2, ITR-3?</div><div><span class="accent">📄 File the Right Return,</span><br><span class="gold">Stress-Free</span></div>',
+                placeholder: 'E.g. Have salary and stock market trading income...'
+            },
+            {
+                html: '<div class="topic-prompt">👉 Got ESOPs or RSUs from Your Company?</div><div><span class="accent">🏢 Plan Taxation</span><br><span class="gold">Before You Cash Out</span></div>',
+                placeholder: 'E.g. Tax implications of exercising US RSUs...'
+            },
+            {
+                html: '<div class="topic-prompt">👉 Running a Small Business but Books Are Messy?</div><div><span class="accent">📊 Get Accounting &</span><br><span class="gold">Compliance Sorted</span></div>',
+                placeholder: 'E.g. Need help reconciling bank statements...'
+            },
+            {
+                html: '<div class="topic-prompt">👉 Missed Filing ITR Last Year?</div><div><span class="accent">⏳ Fix It Before It</span><br><span class="gold">Becomes a Problem</span></div>',
+                placeholder: 'E.g. Need to file updated return (ITR-U)...'
+            },
+            {
+                html: '<div class="topic-prompt">👉 Unsure Where to Invest Your Money?</div><div><span class="accent">📈 Speak to a Verified</span><br><span class="gold">Advisor Today</span></div>',
+                placeholder: 'E.g. Best tax-saving mutual funds (ELSS)...'
+            }
+        ];
+
+        let currentTopicIdx = 0;
+        const headlineElement = document.getElementById('revolving-headline');
+        const searchInputElement = document.getElementById('hero-search-input');
+        
+        setInterval(() => {
+            headlineElement.style.opacity = 0;
+            // Add a quick fade to the search bar for the placeholder change
+            searchInputElement.style.transition = 'opacity 0.5s ease';
+            searchInputElement.style.opacity = 0.5;
+
+            setTimeout(() => {
+                currentTopicIdx = (currentTopicIdx + 1) % rotatingTopics.length;
+                headlineElement.innerHTML = rotatingTopics[currentTopicIdx].html;
+                searchInputElement.placeholder = rotatingTopics[currentTopicIdx].placeholder;
+                
+                headlineElement.style.opacity = 1;
+                searchInputElement.style.opacity = 1;
+            }, 500); // Wait for fade out
+        }, 4000); // 4 seconds per slide
+    </script>
+</body>
+</html>
