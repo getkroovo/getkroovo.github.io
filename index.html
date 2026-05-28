@@ -592,9 +592,95 @@
             .svc-modal-item { flex-wrap: wrap; gap: 10px; padding: 14px; }
             .svc-modal-book { width: 100%; text-align: center; padding: 10px; }
         }
+
+        /* Promotional Banner */
+        .promo-banner {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--teal) 100%);
+            color: var(--white);
+            padding: 12px 24px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            position: relative;
+            z-index: 10001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .promo-banner.dismissed {
+            margin-top: -60px;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .promo-banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .promo-badge {
+            background: var(--white);
+            color: var(--teal);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 5px;
+            letter-spacing: 0.8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .promo-text {
+            letter-spacing: 0.3px;
+        }
+        .promo-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-size: 22px;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            transition: all 0.2s;
+            opacity: 0.8;
+        }
+        .promo-close-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+        @media (max-width: 768px) {
+            .promo-banner {
+                font-size: 12px;
+                padding: 10px 40px 10px 20px;
+            }
+            .promo-banner-content {
+                gap: 5px;
+            }
+        }
     </style>
 </head>
 <body id="top">
+
+    <!-- Promotional Offer Banner -->
+    <div class="promo-banner" id="promo-banner">
+        <div class="promo-banner-content">
+            <span class="promo-badge">PROMOTIONAL OFFER</span>
+            <span class="promo-text">🎉 <strong>Free Consultation</strong> for the first 100 customers! Limited slots remaining.* <a href="terms.html#promotional-terms" style="color: var(--white); text-decoration: underline; font-weight: 500; font-size: 0.9em; margin-left: 5px;">*Conditions Apply</a></span>
+        </div>
+        <button class="promo-close-btn" onclick="dismissPromoBanner()" aria-label="Dismiss banner">&times;</button>
+    </div>
 
     <!-- Navigation -->
     <nav>
@@ -754,7 +840,7 @@
                 <p class="problem">Struggling with complex salary structures, multiple Form 16s, or capital gains?</p>
                 <div class="outcome">Error-free filing & max deductions</div>
                 <div class="intent-footer">
-                    <div class="intent-price"><span>Price</span> <br>₹599 - ₹4,999</div>
+                    <div class="intent-price"><span>Price</span> <br><del style="opacity: 0.5; margin-right: 5px; font-weight: normal;">₹599 - ₹4,999</del><strong style="color: var(--teal-light);">₹0</strong></div>
                     <div class="intent-tat"><i class="fa-regular fa-clock"></i> 24-48h TAT</div>
                 </div>
                 <a href="https://tally.so/r/b5NdE6" class="btn-primary" style="width: 100%; text-align: center; border-radius: 8px; font-size: 14px; margin-top: 15px;">Book Session</a>
@@ -766,7 +852,7 @@
                 <p class="problem">Unsure whether Old or New Tax Regime saves you more money for FY 2026?</p>
                 <div class="outcome">Personalized tax-saving strategy</div>
                 <div class="intent-footer">
-                    <div class="intent-price"><span>Price</span> <br>₹499 - ₹2,499</div>
+                    <div class="intent-price"><span>Price</span> <br><del style="opacity: 0.5; margin-right: 5px; font-weight: normal;">₹499 - ₹2,499</del><strong style="color: var(--teal-light);">₹0</strong></div>
                     <div class="intent-tat"><i class="fa-regular fa-clock"></i> Instant Consult</div>
                 </div>
                 <a href="https://tally.so/r/b5NdE6" class="btn-primary" style="width: 100%; text-align: center; border-radius: 8px; font-size: 14px; margin-top: 15px;">Book Session</a>
@@ -778,7 +864,7 @@
                 <p class="problem">Holding ESOPs, real estate, or high-yield assets and worried about heavy taxes?</p>
                 <div class="outcome">Optimized Wealth & Capital Gains</div>
                 <div class="intent-footer">
-                    <div class="intent-price"><span>Price</span> <br>₹999 - ₹2,999</div>
+                    <div class="intent-price"><span>Price</span> <br><del style="opacity: 0.5; margin-right: 5px; font-weight: normal;">₹999 - ₹2,999</del><strong style="color: var(--teal-light);">₹0</strong></div>
                     <div class="intent-tat"><i class="fa-regular fa-clock"></i> Detailed Plan</div>
                 </div>
                 <a href="https://tally.so/r/b5NdE6" class="btn-primary" style="width: 100%; text-align: center; border-radius: 8px; font-size: 14px; margin-top: 15px;">Book Session</a>
@@ -790,7 +876,7 @@
                 <p class="problem">Received a scrutiny notice under section 143(1) or 148? Don't ignore it.</p>
                 <div class="outcome">Expert drafted legal rebuttal</div>
                 <div class="intent-footer">
-                    <div class="intent-price"><span>Price</span> <br>₹1,499 - ₹4,499</div>
+                    <div class="intent-price"><span>Price</span> <br><del style="opacity: 0.5; margin-right: 5px; font-weight: normal;">₹1,499 - ₹4,499</del><strong style="color: var(--teal-light);">₹0</strong></div>
                     <div class="intent-tat"><i class="fa-regular fa-clock"></i> High Priority</div>
                 </div>
                 <a href="https://tally.so/r/b5NdE6" class="btn-primary" style="width: 100%; text-align: center; border-radius: 8px; font-size: 14px; margin-top: 15px;">Book Session</a>
@@ -802,7 +888,7 @@
                 <p class="problem">Mismatched ITC, late filing penalties, or complex multi-state GST rules?</p>
                 <div class="outcome">Compliant filing & penalty waiver</div>
                 <div class="intent-footer">
-                    <div class="intent-price"><span>Price</span> <br>₹1,599 - ₹99,999</div>
+                    <div class="intent-price"><span>Price</span> <br><del style="opacity: 0.5; margin-right: 5px; font-weight: normal;">₹1,599 - ₹99,999</del><strong style="color: var(--teal-light);">₹0</strong></div>
                     <div class="intent-tat"><i class="fa-regular fa-clock"></i> Ongoing Support</div>
                 </div>
                 <a href="https://tally.so/r/b5NdE6" class="btn-primary" style="width: 100%; text-align: center; border-radius: 8px; font-size: 14px; margin-top: 15px;">Book Session</a>
@@ -814,7 +900,7 @@
                 <p class="problem">Starting a new venture? Need PVT LTD, LLP, or Proprietorship setup?</p>
                 <div class="outcome">Complete ROC incorporation</div>
                 <div class="intent-footer">
-                    <div class="intent-price"><span>Price</span> <br>₹2,999 - ₹8,999</div>
+                    <div class="intent-price"><span>Price</span> <br><del style="opacity: 0.5; margin-right: 5px; font-weight: normal;">₹2,999 - ₹8,999</del><strong style="color: var(--teal-light);">₹0</strong></div>
                     <div class="intent-tat"><i class="fa-regular fa-clock"></i> End-to-End</div>
                 </div>
                 <a href="https://tally.so/r/b5NdE6" class="btn-primary" style="width: 100%; text-align: center; border-radius: 8px; font-size: 14px; margin-top: 15px;">Book Session</a>
@@ -826,7 +912,7 @@
                 <p class="problem">Facing issues with EPF withdrawal, UAN merging, or employer compliance?</p>
                 <div class="outcome">Hassle-free fund access</div>
                 <div class="intent-footer">
-                    <div class="intent-price"><span>Price</span> <br>₹499 - ₹1,499</div>
+                    <div class="intent-price"><span>Price</span> <br><del style="opacity: 0.5; margin-right: 5px; font-weight: normal;">₹499 - ₹1,499</del><strong style="color: var(--teal-light);">₹0</strong></div>
                     <div class="intent-tat"><i class="fa-regular fa-clock"></i> Fast Track</div>
                 </div>
                 <a href="https://tally.so/r/b5NdE6" class="btn-primary" style="width: 100%; text-align: center; border-radius: 8px; font-size: 14px; margin-top: 15px;">Book Session</a>
@@ -838,7 +924,7 @@
                 <p class="problem">Exporting software or services? Claim zero-rated GST benefits legally.</p>
                 <div class="outcome">Filed LUT & 15CA/CB support</div>
                 <div class="intent-footer">
-                    <div class="intent-price"><span>Price</span> <br>₹999 - ₹2,999</div>
+                    <div class="intent-price"><span>Price</span> <br><del style="opacity: 0.5; margin-right: 5px; font-weight: normal;">₹999 - ₹2,999</del><strong style="color: var(--teal-light);">₹0</strong></div>
                     <div class="intent-tat"><i class="fa-regular fa-clock"></i> 24h Filing</div>
                 </div>
                 <a href="https://tally.so/r/b5NdE6" class="btn-primary" style="width: 100%; text-align: center; border-radius: 8px; font-size: 14px; margin-top: 15px;">Book Session</a>
@@ -851,6 +937,9 @@
                 <p class="problem" style="margin-bottom: 20px;">Need something specific? Let us know and we'll connect you with the right expert immediately.</p>
                 <a href="https://tally.so/r/b5NdE6" class="btn-primary" style="width: 100%; text-align: center; border-radius: 8px; font-size: 15px; margin-top: auto;">Request Additional Service</a>
             </div>
+        </div>
+        <div style="text-align: center; margin-top: 30px; font-size: 13px; color: var(--text-muted);">
+            * Promotional pricing applies strictly to the initial advisory consultation. Execution or formal engagements arising from consultations are subject to independent professional charges. See <a href="terms.html#promotional-terms" style="color: var(--gold); text-decoration: underline;">Terms & Conditions</a>.
         </div>
     </section>
 
@@ -1116,32 +1205,32 @@
             <div class="svc-modal-body">
                 <div class="svc-modal-item">
                     <div class="svc-modal-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                    <div class="svc-modal-info"><h4>ITR Filing</h4><p>₹599 – ₹4,999 · 24-48h TAT</p></div>
+                    <div class="svc-modal-info"><h4>ITR Filing</h4><p><del style="opacity: 0.5;">₹599 – ₹4,999</del> <strong style="color: var(--teal-light);">₹0</strong> · 24-48h TAT</p></div>
                     <a href="https://tally.so/r/b5NdE6" class="svc-modal-book">Book Session</a>
                 </div>
                 <div class="svc-modal-item">
                     <div class="svc-modal-icon"><i class="fa-solid fa-scale-balanced"></i></div>
-                    <div class="svc-modal-info"><h4>Tax Planning & Regime Selection</h4><p>₹499 – ₹2,499 · Instant Consult</p></div>
+                    <div class="svc-modal-info"><h4>Tax Planning & Regime Selection</h4><p><del style="opacity: 0.5;">₹499 – ₹2,499</del> <strong style="color: var(--teal-light);">₹0</strong> · Instant Consult</p></div>
                     <a href="https://tally.so/r/b5NdE6" class="svc-modal-book">Book Session</a>
                 </div>
                 <div class="svc-modal-item">
                     <div class="svc-modal-icon"><i class="fa-solid fa-chart-line"></i></div>
-                    <div class="svc-modal-info"><h4>Investment Advisory</h4><p>₹999 – ₹2,999 · Detailed Plan</p></div>
+                    <div class="svc-modal-info"><h4>Investment Advisory</h4><p><del style="opacity: 0.5;">₹999 – ₹2,999</del> <strong style="color: var(--teal-light);">₹0</strong> · Detailed Plan</p></div>
                     <a href="https://tally.so/r/b5NdE6" class="svc-modal-book">Book Session</a>
                 </div>
                 <div class="svc-modal-item">
                     <div class="svc-modal-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                    <div class="svc-modal-info"><h4>Income Tax Notices</h4><p>₹1,499 – ₹4,499 · High Priority</p></div>
+                    <div class="svc-modal-info"><h4>Income Tax Notices</h4><p><del style="opacity: 0.5;">₹1,499 – ₹4,499</del> <strong style="color: var(--teal-light);">₹0</strong> · High Priority</p></div>
                     <a href="https://tally.so/r/b5NdE6" class="svc-modal-book">Book Session</a>
                 </div>
                 <div class="svc-modal-item">
                     <div class="svc-modal-icon"><i class="fa-solid fa-piggy-bank"></i></div>
-                    <div class="svc-modal-info"><h4>PF / ESI Assistance</h4><p>₹499 – ₹1,499 · Fast Track</p></div>
+                    <div class="svc-modal-info"><h4>PF / ESI Assistance</h4><p><del style="opacity: 0.5;">₹499 – ₹1,499</del> <strong style="color: var(--teal-light);">₹0</strong> · Fast Track</p></div>
                     <a href="https://tally.so/r/b5NdE6" class="svc-modal-book">Book Session</a>
                 </div>
                 <div class="svc-modal-item">
                     <div class="svc-modal-icon"><i class="fa-solid fa-id-card"></i></div>
-                    <div class="svc-modal-info"><h4>GST Registration</h4><p>₹1,000 – ₹10,000 · End-to-End Support</p></div>
+                    <div class="svc-modal-info"><h4>GST Registration</h4><p><del style="opacity: 0.5;">₹1,000 – ₹10,000</del> <strong style="color: var(--teal-light);">₹0</strong> · End-to-End Support</p></div>
                     <a href="https://tally.so/r/b5NdE6" class="svc-modal-book">Book Session</a>
                 </div>
                 <div class="svc-modal-item upcoming">
@@ -1170,17 +1259,17 @@
             <div class="svc-modal-body">
                 <div class="svc-modal-item">
                     <div class="svc-modal-icon"><i class="fa-solid fa-id-card"></i></div>
-                    <div class="svc-modal-info"><h4>GST Registration</h4><p>₹1,000 – ₹10,000 · End-to-End Support</p></div>
+                    <div class="svc-modal-info"><h4>GST Registration</h4><p><del style="opacity: 0.5;">₹1,000 – ₹10,000</del> <strong style="color: var(--teal-light);">₹0</strong> · End-to-End Support</p></div>
                     <a href="https://tally.so/r/b5NdE6" class="svc-modal-book">Book Session</a>
                 </div>
                 <div class="svc-modal-item">
                     <div class="svc-modal-icon"><i class="fa-solid fa-receipt"></i></div>
-                    <div class="svc-modal-info"><h4>GST Returns & Notices</h4><p>₹1,599 – ₹99,999 · Ongoing Support</p></div>
+                    <div class="svc-modal-info"><h4>GST Returns & Notices</h4><p><del style="opacity: 0.5;">₹1,599 – ₹99,999</del> <strong style="color: var(--teal-light);">₹0</strong> · Ongoing Support</p></div>
                     <a href="https://tally.so/r/b5NdE6" class="svc-modal-book">Book Session</a>
                 </div>
                 <div class="svc-modal-item">
                     <div class="svc-modal-icon"><i class="fa-solid fa-rocket"></i></div>
-                    <div class="svc-modal-info"><h4>Company Registration</h4><p>₹2,999 – ₹8,999 · End-to-End</p></div>
+                    <div class="svc-modal-info"><h4>Company Registration</h4><p><del style="opacity: 0.5;">₹2,999 – ₹8,999</del> <strong style="color: var(--teal-light);">₹0</strong> · End-to-End</p></div>
                     <a href="https://tally.so/r/b5NdE6" class="svc-modal-book">Book Session</a>
                 </div>
                 <div class="svc-modal-item">
@@ -1190,7 +1279,7 @@
                 </div>
                 <div class="svc-modal-item">
                     <div class="svc-modal-icon"><i class="fa-solid fa-earth-americas"></i></div>
-                    <div class="svc-modal-info"><h4>LUT & Export Compliance</h4><p>₹999 – ₹2,999 · 24h Filing</p></div>
+                    <div class="svc-modal-info"><h4>LUT & Export Compliance</h4><p><del style="opacity: 0.5;">₹999 – ₹2,999</del> <strong style="color: var(--teal-light);">₹0</strong> · 24h Filing</p></div>
                     <a href="https://tally.so/r/b5NdE6" class="svc-modal-book">Book Session</a>
                 </div>
                 <div class="svc-modal-item">
@@ -1216,6 +1305,28 @@
             if (e.key === 'Escape') {
                 document.querySelectorAll('.svc-modal-overlay.active').forEach(m => { m.classList.remove('active'); });
                 document.body.style.overflow = '';
+            }
+        });
+
+        // Dismiss promotional banner
+        function dismissPromoBanner() {
+            const banner = document.getElementById('promo-banner');
+            if (banner) {
+                banner.classList.add('dismissed');
+                localStorage.setItem('kroovo-promo-dismissed', 'true');
+                setTimeout(() => {
+                    banner.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        // Check if banner was already dismissed
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('kroovo-promo-dismissed') === 'true') {
+                const banner = document.getElementById('promo-banner');
+                if (banner) {
+                    banner.style.display = 'none';
+                }
             }
         });
     </script>
@@ -1382,7 +1493,7 @@
                     <div class="pro-card-footer">
                         <div class="pro-price">
                             <span class="pro-price-label">Per Session</span>
-                            <span class="pro-price-value">${pro.price}</span>
+                            <span class="pro-price-value"><del style="opacity: 0.5; font-size: 0.85em; font-weight: normal; margin-right: 5px;">${pro.price}</del><strong style="color: var(--teal-light); font-size: 1.1em;">₹0</strong></span>
                         </div>
                     </div>
                 </div>
